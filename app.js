@@ -180,11 +180,13 @@ function submitQuiz(){
     userResponses.push({axis: currentQuestion.axis,  answer: userResponse})
   }
   )
+  console.log('sup')
+  quizContainer.style.display = none;
+  quizSubmitButton.style.display = none;
   return userResponses;
 }
 
 function computeAlignments(){
-
 }
 
 function displayPlots(){
