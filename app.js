@@ -8,7 +8,7 @@ const plotContainer = document.getElementById('plot')
 
 const demoQuestions = [
   {
-    "questionText": "What is your age?"
+    "questionText": "What is your age?",
     "answers": {
       a: "0-18",
       b: "19-25",
@@ -19,7 +19,7 @@ const demoQuestions = [
     }
   },
   {
-    "questionText": "What is your gender identity?"
+    "questionText": "What is your gender identity?",
     "answers": {
       a: "man",
       b: "woman",
