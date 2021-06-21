@@ -1,16 +1,9 @@
+const startButton = document.getElementById('start-btn')
+const demosContainer = document.getElementById('demos')
 const quizContainer = document.getElementById('quiz');
 const resultsContainer = document.getElementById('results');
 const plotContainer = document.getElementById('plot')
 const submitButton = document.getElementById('submit-btn');
-
-function shuffleArray(array){
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    const temp = array[i];
-    array[i] = array[j];
-    array[j] = temp;
-  }
-}
 
 const quizQuestions = [
   {
@@ -73,21 +66,43 @@ const quizAnswers = {
   g: "Unsure or N/A"
 }
 
-shuffleArray(quizQuestions);
-quizQuestions.forEach(q => q['answers'] = quizAnswers)
+function shuffleArray(array){
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    const temp = array[i];
+    array[i] = array[j];
+    array[j] = temp;
+  }
+}
+
+function displayDemos(){
+  const output = [];
+  output.push(
+  `<h1> Demographic Questions </h1>
+  <p id="msg"> What is your age? </p>
+  <label><input type="radio" name="demo1" value="19-25">19 - 25</label>
+  <label><input type="radio" name="demo1" value="26-35">26 - 35</label>
+  <label><input type="radio" name="demo1" value="36-50">36 - 50</label>
+  <label><input type="radio" name="demo1" value="50-65">50 - 65</label>
+  <label><input type="radio" name="demo1" value="65+">65+</label><br><br>`
+  );
+  demosContainer.innerHTML = output;
+}
+
+function submitDemos(){
+
+}
 
 function buildQuiz(){
-  // variable to store the HTML output
   const output = [];
 
-  //const shuffledQuestions = shuffleArray(quizQuestions)
-  // for each question...
+  // shuffle questions randomly
+  shuffleArray(quizQuestions);
+  quizQuestions.forEach(q => q['answers'] = quizAnswers)
+
   quizQuestions.forEach((currentQuestion, questionNumber) => {
-    // variable to store the list of possible answers
     const answers = [];
-    // and for each available answer...
     for(letter in currentQuestion.answers){
-      // ...add an HTML radio button
         answers.push(
           `<label>
             <input type="radio" name="question${questionNumber}" value="${letter}">
@@ -133,9 +148,14 @@ function displayPlots(){
   	margin: { t: 0 } } );
 }
 
+function runQuiz(){
+  displayDemos();
+  buildQuiz();
+}
 // display quiz right away
-buildQuiz();
+
 displayPlots();
 
-// on submit, show results
-submitButton.addEventListener('click', collateAnswers);
+startButton.addEventListener('click', displayDemos);
+demoSubmitButton.addEventListener('click', submitDemos);
+quizSubmitButton.addEventListener('click', collateAnswers);
