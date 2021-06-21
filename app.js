@@ -6,6 +6,28 @@ const quizContainer = document.getElementById('quiz');
 const resultsContainer = document.getElementById('results');
 const plotContainer = document.getElementById('plot')
 
+const demoQuestions = [
+  {
+    "questionText": "What is your age?"
+    "answers": {
+      a: "0-18",
+      b: "19-25",
+      c: "26-35",
+      d: "36-50",
+      e: "51-65",
+      f: "65+"
+    }
+  },
+  {
+    "questionText": "What is your gender identity?"
+    "answers": {
+      a: "man",
+      b: "woman",
+      c: "other"
+    }
+  }
+]
+
 const quizQuestions = [
   {
     "axis": "LR",
@@ -78,16 +100,24 @@ function shuffleArray(array){
 
 function displayDemos(){
   const output = [];
+  output.push(`<h1> Demographic Questions </h1>`)
+  demoQuestions.forEach((currentQuestion, questionNumber) => {
+    const answers = [];
+    for(letter in currentQuestion.answers){
+      answers.push(
+        `<label>
+        <input type="radio" name="demo${questionNumber}" value=${letter}>
+        currentQuestion.answers[letter]
+        </label>`
+      );
+    }
+  });
+
   output.push(
-  `<h1> Demographic Questions </h1>
-  <p id="msg"> What is your age? </p>
-  <label><input type="radio" name="demo1" value="19-25">19 - 25</label>
-  <label><input type="radio" name="demo1" value="26-35">26 - 35</label>
-  <label><input type="radio" name="demo1" value="36-50">36 - 50</label>
-  <label><input type="radio" name="demo1" value="50-65">50 - 65</label>
-  <label><input type="radio" name="demo1" value="65+">65+</label><br><br>`
+  `<div class="question"> ${currentQuestion.questionText} </div>
+  <div class="answers"> ${answers.join('')} </div> <br>`
   );
-  demosContainer.innerHTML = output;
+  demosContainer.innerHTML = output.join('');
 }
 
 function submitDemos(){
@@ -149,8 +179,6 @@ function displayPlots(){
   	margin: { t: 0 } } );
 }
 
-displayPlots();
-
 startButton.addEventListener('click', displayDemos);
 demoSubmitButton.addEventListener('click', () => {submitDemos; buildQuiz;});
-quizSubmitButton.addEventListener('click', collateAnswers);
+quizSubmitButton.addEventListener('click', () => {collateAnswers; computeAlignments; displayPlots;});
