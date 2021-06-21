@@ -39,6 +39,11 @@ body {
   text-align: left;
 }
 
+.plot {
+  width: 600px;
+  height:250px;
+}
+
 .dark-theme {
   --bg: var(--dark-grey);
   --fontColor: var(--off-white);

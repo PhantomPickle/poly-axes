@@ -1,5 +1,6 @@
 const quizContainer = document.getElementById('quiz');
 const resultsContainer = document.getElementById('results');
+const plotContainer = document.getElementById('plot')
 const submitButton = document.getElementById('submit-btn');
 
 function shuffleArray(array){
@@ -122,15 +123,19 @@ function collateAnswers(){
 }
 
 function computeAlignments(){
-  
+
 }
 
 function displayPlots(){
-
+  Plotly.newPlot( plotContainer, [{
+  	x: [1, 2, 3, 4, 5],
+  	y: [1, 2, 4, 8, 16] }], {
+  	margin: { t: 0 } } );
 }
 
 // display quiz right away
 buildQuiz();
+displayPlots();
 
 // on submit, show results
 submitButton.addEventListener('click', collateAnswers);
