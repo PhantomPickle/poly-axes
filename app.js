@@ -4,7 +4,7 @@ const quizSubmitButton = document.getElementById('quiz-submit-btn');
 const demoContainer = document.getElementById('demos')
 const quizContainer = document.getElementById('quiz');
 const resultsContainer = document.getElementById('results');
-const plotContainer = document.getElementById('plot')
+const plotContainer = document.getElementById('pl1')
 
 const demoQuestions = [
   {
@@ -87,6 +87,16 @@ const quizAnswers = {
   e: "Somewhat Disagree",
   f: "Strongly Disagree",
   g: "Unsure or N/A"
+}
+
+const answerWeights = {
+  a: [1.0,0.0],
+  b: [.5,0.0],
+  c: [0.0,0.0],
+  d: [.5,.5],
+  e: [0.0,0.5],
+  f: [0.0,1.0],
+  g: NaN
 }
 
 function shuffleArray(array){
@@ -180,7 +190,6 @@ function submitQuiz(){
     userResponses.push({axis: currentQuestion.axis,  answer: userResponse})
   }
   )
-  console.log('sup')
   quizContainer.style.display = "none";
   quizSubmitButton.style.display = "none";
   return userResponses;
@@ -191,10 +200,40 @@ function computeAlignments(){
 
 function displayResults(){
   resultsContainer.style.visibility = "visible";
-  Plotly.newPlot( plotContainer, [{
-  	x: [1, 2, 3, 4, 5],
-  	y: [1, 2, 4, 8, 16] }], {
-  	margin: { t: 0 } } );
+  const myChart = new Chart(plotContainer, {
+    type: 'bar',
+    data: {
+        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        datasets: [{
+            label: '# of Votes',
+            data: [12, 19, 3, 5, 2, 3],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
 }
 
 startButton.addEventListener('click', displayDemos);

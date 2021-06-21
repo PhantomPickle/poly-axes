@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>Political Axes</title>
     <link rel="stylesheet" href="main.css">
-    <script src="https://cdn.plot.ly/plotly-2.0.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.3.2/chart.min.js"></script>
   </head>
   <body class="dark-theme">
     <h1> PolyAxis Alignment Quiz </h1>
@@ -19,7 +19,7 @@
     <div class="button"><button id="quiz-submit-btn">Submit Quiz</button></div><br>
     <div id="results">
       <h1>Results</h1>
-      <div id="plot"></div>
+      <canvas class="plot" id="pl1" width="400" height="400"></canvas>
     </div>
   <script src="app.js" charset="utf-8"></script>
   <noscript>You need to enable JavaScript to view the full site.</noscript>
