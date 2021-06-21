@@ -143,6 +143,7 @@ function buildQuiz(){
 
   // shuffle questions randomly and assign standard answer set to each
   shuffleArray(quizQuestions);
+  quizSubmitButton.style.visibility = "visible";
   quizQuestions.forEach(q => q['answers'] = quizAnswers)
 
   quizQuestions.forEach((currentQuestion, questionNumber) => {
