@@ -189,7 +189,7 @@ function submitQuiz(){
 function computeAlignments(){
 }
 
-function displayPlots(){
+function displayResults(){
   Plotly.newPlot( plotContainer, [{
   	x: [1, 2, 3, 4, 5],
   	y: [1, 2, 4, 8, 16] }], {
@@ -198,4 +198,4 @@ function displayPlots(){
 
 startButton.addEventListener('click', displayDemos);
 demoSubmitButton.addEventListener('click', () => {const demoResponses = submitDemos(); buildQuiz();});
-quizSubmitButton.addEventListener('click', () => {const quizResponses = submitQuiz(); computeAlignments(); displayPlots();});
+quizSubmitButton.addEventListener('click', () => {const quizResponses = submitQuiz(); computeAlignments(); displayResults();});
