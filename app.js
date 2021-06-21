@@ -100,6 +100,8 @@ function shuffleArray(array){
 
 function displayDemos(){
   const output = [];
+  startButton.style.display = "none";
+
   output.push(`<h2> Demographic Questions </h2>`)
   demoQuestions.forEach((currentQuestion, questionNumber) => {
     const answers = [];
@@ -116,19 +118,30 @@ function displayDemos(){
       <div class="answers"> ${answers.join('')} </div> <br>`
     );
   });
+
   demoContainer.innerHTML = output.join('');
-  startButton.style.visibility = "hidden";
   demoSubmitButton.style.visibility = "visible";
 }
 
 function submitDemos(){
-  demoContainer.style.visibility = "hidden";
+  const answerContainers = demoContainer.querySelectorAll('.answers');
+  const userResponses = [];
+  demoQuestions.forEach( (currentQuestion, questionNumber) => {
+    const answerContainer = answerContainers[questionNumber];
+    const selector = `input[name=demo${questionNumber}]:checked`;
+    const userResponse = (answerContainer.querySelector(selector) || {}).value;
+    userResponses.push({axis: currentQuestion.axis,  answer: userResponse})
+  }
+  )
+  demoContainer.style.display = "none";
+  demoSubmitButton.style.display = "none";
+  return userResponses;
 }
 
 function buildQuiz(){
   const output = [];
 
-  // shuffle questions randomly
+  // shuffle questions randomly and assign standard answer set to each
   shuffleArray(quizQuestions);
   quizQuestions.forEach(q => q['answers'] = quizAnswers)
 
@@ -147,27 +160,26 @@ function buildQuiz(){
     // add this question and its answers to the output
     output.push(
       `<div class="question"> ${questionNumber+1}. ${currentQuestion.questionText} </div>
-      <div class="answers"> ${answers.join('')} </div> <br>
-      <button>Submit Quiz</button> <br>`
+      <div class="answers"> ${answers.join('')} </div> <br>`
     );
   }
   );
 
-  // finally combine our output list into one string of HTML and put it on the page
+  // combine output list into one string of HTML and display on page
   quizContainer.innerHTML = output.join('');
 }
 
-function collateAnswers(){
+function submitQuiz(){
   const answerContainers = quizContainer.querySelectorAll('.answers');
-  const userAnswers = [];
+  const userResponses = [];
   quizQuestions.forEach( (currentQuestion, questionNumber) => {
     const answerContainer = answerContainers[questionNumber];
     const selector = `input[name=question${questionNumber}]:checked`;
-    const userAnswer = (answerContainer.querySelector(selector) || {}).value;
-    userAnswers.push({axis: currentQuestion.axis,  answer: userAnswer})
+    const userResponse = (answerContainer.querySelector(selector) || {}).value;
+    userResponses.push({axis: currentQuestion.axis,  answer: userResponse})
   }
   )
-  console.log(userAnswers);
+  return userResponses;
 }
 
 function computeAlignments(){
@@ -182,5 +194,5 @@ function displayPlots(){
 }
 
 startButton.addEventListener('click', displayDemos);
-demoSubmitButton.addEventListener('click', () => {submitDemos; buildQuiz;});
-quizSubmitButton.addEventListener('click', () => {collateAnswers; computeAlignments; displayPlots;});
+demoSubmitButton.addEventListener('click', () => {const demoResponses = submitDemos(); buildQuiz();});
+quizSubmitButton.addEventListener('click', () => {const quizResponses = submitQuiz(); computeAlignments(); displayPlots();});
