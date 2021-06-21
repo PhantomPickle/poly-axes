@@ -1,0 +1,47 @@
+:root {
+  --green: #00FF00;
+  --off-white: #d4d4d4;
+  --dark-grey: #121212;
+  --medium-grey: #6F6B6B;
+  --soft-purp: #bb86fc;
+}
+
+* {
+  color: var(--fontColor);
+  font-family: helvetica;
+}
+
+body {
+    background: var(--bg);
+}
+
+.list {
+  list-style: square;
+}
+
+#submit-btn {
+  position: static;
+  height: 50px;
+  width: 60px;
+  border-radius: 16px;
+  border: none;
+  color: var(--btnFontColor);
+  background-color: var(--btnBg)
+}
+
+#submit-btn:focus { outline-style: none; }
+
+#button { text-align: left; }
+
+#quiz { text-align: left; }
+
+.question {
+  text-align: left;
+}
+
+.dark-theme {
+  --bg: var(--dark-grey);
+  --fontColor: var(--off-white);
+  --btnBg: var(--soft-purp);
+  --btnFontColor: var(--dark-grey);
+}
