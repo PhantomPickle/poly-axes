@@ -39,7 +39,7 @@ h1 {
 #start-btn:focus { outline-style: none; }
 
 #demo-submit-btn {
-  display: none;
+  visibility: hidden;
   position: static;
   height: 50px;
   width: 60px;
@@ -51,7 +51,7 @@ h1 {
 #demo-submit-btn:focus { outline-style: none; }
 
 #quiz-submit-btn {
-  display: none;
+  visibility: hidden;
   position: static;
   height: 50px;
   width: 60px;
@@ -71,7 +71,7 @@ h1 {
 }
 
 #results {
-  display: none;
+  visibility: hidden;
 }
 
 .plot {
