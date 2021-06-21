@@ -100,7 +100,7 @@ function shuffleArray(array){
 
 function displayDemos(){
   const output = [];
-  output.push(`<h1> Demographic Questions </h1>`)
+  output.push(`<h2> Demographic Questions </h2>`)
   demoQuestions.forEach((currentQuestion, questionNumber) => {
     const answers = [];
     for(letter in currentQuestion.answers){
@@ -115,7 +115,8 @@ function displayDemos(){
 
   output.push(
   `<div class="question"> ${currentQuestion.questionText} </div>
-  <div class="answers"> ${answers.join('')} </div> <br>`
+  <div class="answers"> ${answers.join('')} </div> <br>
+  <button> Submit</button>`
   );
   demosContainer.innerHTML = output.join('');
 }
@@ -146,7 +147,8 @@ function buildQuiz(){
     // add this question and its answers to the output
     output.push(
       `<div class="question"> ${questionNumber+1}. ${currentQuestion.questionText} </div>
-      <div class="answers"> ${answers.join('')} </div> <br>`
+      <div class="answers"> ${answers.join('')} </div> <br>
+      <button>Submit Quiz</button> <br>`
     );
   }
   );

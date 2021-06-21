@@ -19,7 +19,7 @@ body {
   list-style: square;
 }
 
-#submit-btn {
+#start-btn {
   position: static;
   height: 50px;
   width: 60px;
@@ -28,10 +28,20 @@ body {
   color: var(--btnFontColor);
   background-color: var(--btnBg)
 }
+#start-btn:focus { outline-style: none; }
 
-#submit-btn:focus { outline-style: none; }
+#demo-submit-btn {
+  position: static;
+  height: 50px;
+  width: 60px;
+  border-radius: 16px;
+  border: none;
+  color: var(--btnFontColor);
+  background-color: var(--btnBg)
+}
+#demo-submit-btn:focus { outline-style: none; }
 
-#button { text-align: left; }
+.button { text-align: left; }
 
 #quiz { text-align: left; }
 
