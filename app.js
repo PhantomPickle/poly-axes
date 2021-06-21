@@ -1,7 +1,7 @@
 const startButton = document.getElementById('start-btn')
 const demoSubmitButton = document.getElementById('demo-submit-btn')
 const quizSubmitButton = document.getElementById('quiz-submit-btn');
-const demosContainer = document.getElementById('demos')
+const demoContainer = document.getElementById('demos')
 const quizContainer = document.getElementById('quiz');
 const resultsContainer = document.getElementById('results');
 const plotContainer = document.getElementById('plot')
@@ -107,22 +107,22 @@ function displayDemos(){
       answers.push(
         `<label>
         <input type="radio" name="demo${questionNumber}" value=${letter}>
-        currentQuestion.answers[letter]
+        ${currentQuestion.answers[letter]}
         </label>`
       );
     }
+    output.push(
+      `<div class="question"> ${currentQuestion.questionText} </div>
+      <div class="answers"> ${answers.join('')} </div> <br>`
+    );
   });
-
-  output.push(
-  `<div class="question"> ${currentQuestion.questionText} </div>
-  <div class="answers"> ${answers.join('')} </div> <br>
-  <button> Submit</button>`
-  );
-  demosContainer.innerHTML = output.join('');
+  demoContainer.innerHTML = output.join('');
+  startButton.style.visibility = "hidden";
+  demoSubmitButton.style.visibility = "visible";
 }
 
 function submitDemos(){
-
+  demoContainer.style.visibility = "hidden";
 }
 
 function buildQuiz(){
