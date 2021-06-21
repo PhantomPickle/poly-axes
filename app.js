@@ -190,6 +190,7 @@ function computeAlignments(){
 }
 
 function displayResults(){
+  resultsContainer.visibility = "visible";
   Plotly.newPlot( plotContainer, [{
   	x: [1, 2, 3, 4, 5],
   	y: [1, 2, 4, 8, 16] }], {
