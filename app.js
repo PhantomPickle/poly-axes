@@ -181,8 +181,8 @@ function submitQuiz(){
   }
   )
   console.log('sup')
-  quizContainer.style.display = none;
-  quizSubmitButton.style.display = none;
+  quizContainer.style.display = "none";
+  quizSubmitButton.style.display = "none";
   return userResponses;
 }
 
