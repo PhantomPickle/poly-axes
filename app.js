@@ -1,9 +1,10 @@
 const startButton = document.getElementById('start-btn')
+const demoSubmitButton = document.getElementById('demo-submit-btn')
+const quizSubmitButton = document.getElementById('quiz-submit-btn');
 const demosContainer = document.getElementById('demos')
 const quizContainer = document.getElementById('quiz');
 const resultsContainer = document.getElementById('results');
 const plotContainer = document.getElementById('plot')
-const submitButton = document.getElementById('submit-btn');
 
 const quizQuestions = [
   {
@@ -148,14 +149,8 @@ function displayPlots(){
   	margin: { t: 0 } } );
 }
 
-function runQuiz(){
-  displayDemos();
-  buildQuiz();
-}
-// display quiz right away
-
 displayPlots();
 
 startButton.addEventListener('click', displayDemos);
-demoSubmitButton.addEventListener('click', submitDemos);
+demoSubmitButton.addEventListener('click', () => {submitDemos; buildQuiz;});
 quizSubmitButton.addEventListener('click', collateAnswers);
