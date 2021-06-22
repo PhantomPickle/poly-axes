@@ -187,6 +187,7 @@ function buildQuiz(){
 function submitQuiz(){
   const answerContainers = quizContainer.querySelectorAll('.answers');
   const userResponses = [];
+
   quizQuestions.forEach( (currentQuestion, questionNumber) => {
     const answerContainer = answerContainers[questionNumber];
     const selector = `input[name=question${questionNumber}]:checked`;
@@ -200,6 +201,7 @@ function submitQuiz(){
 
 function mapResponses(userResponses){
   const coords = [];
+
   userResponses.forEach((currentResponse, responseNumber) => {
     if (currentResponse.axis == "LR" && currentResponse.answer) {
       coords.push({
@@ -226,21 +228,26 @@ function mapResponses(userResponses){
       })
     }
   });
-  console.log(coords)
   return coords;
 }
 
-function computeStats(userResponses){
-  console.log("sup")
-  const xCumSum = [];
-  const yCumSum = [];
-  userResponses.forEach((currentResponse, i) => {
-    xCumSum.push(currentResponse["x"])
-    yCumSum.push(currentResponse["y"])
+function computeStats(points){
+  const xCum = [];
+  const yCum = [];
+
+  points.forEach((currentPoint, i) => {
+    xCum.push(currentPoint.x)
+    yCum.push(currentPoint.y)
   });
-  const xAvg = xCumSum/userResponses.size;
-  const yAvg = yCumSum/userResponses.size;
-  return [{x: xAvg, y: yAvg, r: 10}]
+
+  const xCumSum = xCum.reduce((a, b) => a + b, 0);
+  const yCumSum = yCum.reduce((a, b) => a + b, 0);
+  console.log(xCumSum)
+  const xAvg = xCumSum/points.length;
+  const yAvg = yCumSum/points.length;
+  console.log(xAvg)
+
+  return [{x: xAvg, y: yAvg, r: 10}];
 }
 
 function displayResults(responsePoints, avgPoints){
@@ -285,6 +292,6 @@ demoSubmitButton.addEventListener('click', () => {
 quizSubmitButton.addEventListener('click', () => {
   const quizResponses = submitQuiz();
   const responseCoords = mapResponses(quizResponses);
-  const avgCoords = computeStats(quizResponses);
+  const avgCoords = computeStats(responseCoords);
   displayResults(responseCoords, avgCoords);
 });
