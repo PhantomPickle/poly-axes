@@ -198,8 +198,7 @@ function submitQuiz(){
 function computeAlignments(userResponses){
   const coords = [];
   userResponses.forEach((currentResponse, responseNumber) => {
-    if (currentResponse.axis == "LR" && !isNaN(currentResponse.answer)) {
-      console.log(answerWeights[currentResponse.answer][0])
+    if (currentResponse.axis == "LR" && currentResponse.answer) {
       coords.push({
         x: answerWeights[currentResponse.answer][0],
         y: 0,
@@ -212,7 +211,7 @@ function computeAlignments(userResponses){
       })
 
     }
-    else if (currentResponse.axis == "LA" && !isNaN(currentResponse.answer)) {
+    else if (currentResponse.axis == "LA" && currentResponse.answer) {
       coords.push({
         x: 0,
         y: answerWeights[currentResponse.answer][0],
@@ -225,7 +224,7 @@ function computeAlignments(userResponses){
       })
     }
   });
-
+  console.log(coords)
   return coords;
 }
 
