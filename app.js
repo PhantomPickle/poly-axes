@@ -239,12 +239,11 @@ function mapResponses(userResponses){
 function computeStats(points){
   const xCum = [];
   const yCum = [];
+  
   numPoints = points.LRCoords.length + points.ALCoords.length
 
-  console.log(points)
   points.LRCoords.forEach((currentPoint, i) => {
     xCum.push(currentPoint.x)
-    console.log(xCum)
   });
   points.ALCoords.forEach((currentPoint, i) => {
     yCum.push(currentPoint.y)
@@ -252,10 +251,8 @@ function computeStats(points){
 
   const xCumSum = xCum.reduce((a, b) => a + b, 0);
   const yCumSum = yCum.reduce((a, b) => a + b, 0);
-  console.log(xCumSum)
   const xAvg = xCumSum/numPoints;
   const yAvg = yCumSum/numPoints;
-  console.log(xAvg)
 
   return [{x: xAvg, y: yAvg, r: 10}];
 }
