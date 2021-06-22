@@ -196,7 +196,7 @@ function submitQuiz(){
   return userResponses;
 }
 
-function computeAlignments(userResponses){
+function mapResponses(userResponses){
   const coords = [];
   userResponses.forEach((currentResponse, responseNumber) => {
     if (currentResponse.axis == "LR" && currentResponse.answer) {
@@ -229,24 +229,42 @@ function computeAlignments(userResponses){
   return coords;
 }
 
-function displayResults(axisCoords){
-  console.log(axisCoords);
+function computeStats(userResponses){
+  console.log("sup")
+  const xCumSum = [];
+  const yCumSum = [];
+  userResponses.forEach((currentResponse, i) => {
+    xCumSum.push(currentResponse["x"])
+    yCumSum.push(currentResponse["y"])
+  });
+  const xAvg = xCumSum/userResponses.size;
+  const yAvg = yCumSum/userResponses.size;
+  return [{x: xAvg, y: yAvg, r: 10}]
+}
+
+function displayResults(responsePoints, avgPoints){
   resultsContainer.style.visibility = "visible";
   const plot1 = new Chart(plotContainer, {
     type: 'bubble',
     data: {
       datasets: [{
-        label: 'Dataset 1',
-        data: axisCoords,
+        label: 'Responses',
+        data: responsePoints,
         backgroundColor: 'rgb(255, 99, 132)'
-      }]
+      },
+      {
+        label: 'Average',
+        data: avgPoints,
+        backgroundColor: 'rgba(54, 162, 235)'
+      }
+    ]
     },
     options: {
         scales: {
-            y: {
-                beginAtZero: false
-            }
+            x: {beginAtZero: false},
+            y: {beginAtZero: false}
         },
+        borderWidth: 2,
         responsive: true,
         maintainAspectRatio: false
     }
@@ -263,6 +281,7 @@ demoSubmitButton.addEventListener('click', () => {
 
 quizSubmitButton.addEventListener('click', () => {
   const quizResponses = submitQuiz();
-  const axisCoords = computeAlignments(quizResponses);
-  displayResults(axisCoords);
+  const responseCoords = mapResponses(quizResponses);
+  const avgCoords = computeStats(quizResponses);
+  displayResults(responseCoords, avgCoords);
 });

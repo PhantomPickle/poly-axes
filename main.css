@@ -3,6 +3,7 @@
   --off-white: #d4d4d4;
   --dark-grey: #121212;
   --medium-grey: #1e1e1e;
+  --light-grey: #2e2e2e;
   --soft-purp: #bb86fc;
 }
 
@@ -100,11 +101,17 @@ p {
 
 #results {
   visibility: hidden;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
 .plot {
   width: 600px;
-  height:250px;
+  height:400px;
+  background-color: var(--light-grey);
+  border-color: var(--light-grey);
+  border-style: solid;
+  border-radius: 10px;
 }
 
 .dark-theme {
