@@ -253,12 +253,12 @@ function displayResults(responsePoints, avgPoints){
       datasets: [{
         label: 'Responses',
         data: responsePoints,
-        backgroundColor: 'rgb(255, 99, 132)'
+        backgroundColor: 'rgb(187,134,252)'
       },
       {
         label: 'Average',
         data: avgPoints,
-        backgroundColor: 'rgba(54, 162, 235)'
+        backgroundColor: 'rgb(129,133,236)'
       }
     ]
     },
