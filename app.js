@@ -8,6 +8,7 @@ const quizContainer = document.getElementById('quiz');
 const quizQContainer = document.getElementById('quizQuestions');
 const resultsContainer = document.getElementById('results');
 const plotContainer = document.getElementById('pl1');
+const conclusionContainer = document.getElementById('conclusion')
 
 const demoQuestions = [
   {
@@ -139,6 +140,7 @@ function displayDemos(){
 function submitDemos(){
   const answerContainers = demoQContainer.querySelectorAll('.answers');
   const userResponses = [];
+
   demoQuestions.forEach( (currentQuestion, questionNumber) => {
     const answerContainer = answerContainers[questionNumber];
     const selector = `input[name=demo${questionNumber}]:checked`;
@@ -210,7 +212,6 @@ function mapResponses(userResponses){
         y: 0,
         r: 10
       })
-
     }
     else if (currentResponse.axis == "AL" && currentResponse.answer) {
       coords.push({
@@ -244,6 +245,8 @@ function computeStats(userResponses){
 
 function displayResults(responsePoints, avgPoints){
   resultsContainer.style.visibility = "visible";
+  conclusionContainer.style.visibility = "visible";
+
   const plot1 = new Chart(plotContainer, {
     type: 'bubble',
     data: {

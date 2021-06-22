@@ -96,3 +96,7 @@ button.button {
 #resultHead {
   font-size: 100%;
 }
+
+#conclusion {
+  visibility: hidden;
+}
