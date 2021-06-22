@@ -200,51 +200,61 @@ function submitQuiz(){
 }
 
 function mapResponses(userResponses){
-  const coords = [];
+  const LRCoords = [];
+  const ALCoords = [];
 
   userResponses.forEach((currentResponse, responseNumber) => {
     if (currentResponse.axis == "LR" && currentResponse.answer) {
-      coords.push({
+      LRCoords.push({
         x: answerWeights[currentResponse.answer][0],
         y: 0,
-        r: 10
+        r: 3
       })
-      coords.push({
+      LRCoords.push({
         x: -1*answerWeights[currentResponse.answer][1],
         y: 0,
-        r: 10
+        r: 3
       })
     }
     else if (currentResponse.axis == "AL" && currentResponse.answer) {
-      coords.push({
+      ALCoords.push({
         x: 0,
         y: answerWeights[currentResponse.answer][0],
-        r: 10
+        r: 3
       })
-      coords.push({
+      ALCoords.push({
         x: 0,
         y: -1*answerWeights[currentResponse.answer][1],
-        r: 10
+        r: 3
       })
     }
   });
-  return coords;
+
+  return {
+    "LRCoords": LRCoords,
+    "ALCoords": ALCoords
+  }
 }
 
 function computeStats(points){
   const xCum = [];
   const yCum = [];
+  numPoints = points.LRCoords.length + points.ALCoords.length
 
-  points.forEach((currentPoint, i) => {
+  console.log(points)
+  points.LRCoords.forEach((currentPoint, i) => {
     xCum.push(currentPoint.x)
+    console.log(xCum)
+  });
+  points.ALCoords.forEach((currentPoint, i) => {
     yCum.push(currentPoint.y)
   });
 
   const xCumSum = xCum.reduce((a, b) => a + b, 0);
   const yCumSum = yCum.reduce((a, b) => a + b, 0);
   console.log(xCumSum)
-  const xAvg = xCumSum/points.length;
-  const yAvg = yCumSum/points.length;
+  const xAvg = xCumSum/numPoints;
+  const yAvg = yCumSum/numPoints;
   console.log(xAvg)
 
   return [{x: xAvg, y: yAvg, r: 10}];
@@ -258,14 +268,19 @@ function displayResults(responsePoints, avgPoints){
     type: 'bubble',
     data: {
       datasets: [{
-        label: 'Responses',
-        data: responsePoints,
+        label: 'Left / Right',
+        data: responsePoints.LRCoords,
         backgroundColor: 'rgb(187,134,252)'
+      },
+      {
+        label: 'Authoritarian / Libertarian',
+        data: responsePoints.ALCoords,
+        backgroundColor: 'rgb(129,133,236)'
       },
       {
         label: 'Average',
         data: avgPoints,
-        backgroundColor: 'rgb(129,133,236)'
+        backgroundColor: 'rgb(191,69,151)'
       }
     ]
     },
@@ -292,6 +307,7 @@ demoSubmitButton.addEventListener('click', () => {
 quizSubmitButton.addEventListener('click', () => {
   const quizResponses = submitQuiz();
   const responseCoords = mapResponses(quizResponses);
+  console.log(responseCoords)
   const avgCoords = computeStats(responseCoords);
   displayResults(responseCoords, avgCoords);
 });
