@@ -1,10 +1,13 @@
-const startButton = document.getElementById('start-btn')
-const demoSubmitButton = document.getElementById('demo-submit-btn')
+const introContainer = document.getElementById('intro');
+const startButton = document.getElementById('start-btn');
+const demoSubmitButton = document.getElementById('demo-submit-btn');
 const quizSubmitButton = document.getElementById('quiz-submit-btn');
-const demoContainer = document.getElementById('demos')
+const demographicsContainer = document.getElementById('demographics')
+const demoQContainer = document.getElementById('demoQuestions');
 const quizContainer = document.getElementById('quiz');
+const quizQContainer = document.getElementById('quizQuestions');
 const resultsContainer = document.getElementById('results');
-const plotContainer = document.getElementById('pl1')
+const plotContainer = document.getElementById('pl1');
 
 const demoQuestions = [
   {
@@ -110,9 +113,9 @@ function shuffleArray(array){
 
 function displayDemos(){
   const output = [];
-  startButton.style.display = "none";
+  introContainer.style.display = "none";
+  demographicsContainer.style.visibility = "visible";
 
-  output.push(`<h2> Demographic Questions </h2>`)
   demoQuestions.forEach((currentQuestion, questionNumber) => {
     const answers = [];
     for(letter in currentQuestion.answers){
@@ -129,12 +132,12 @@ function displayDemos(){
     );
   });
 
-  demoContainer.innerHTML = output.join('');
+  demoQContainer.innerHTML = output.join('');
   demoSubmitButton.style.visibility = "visible";
 }
 
 function submitDemos(){
-  const answerContainers = demoContainer.querySelectorAll('.answers');
+  const answerContainers = demoQContainer.querySelectorAll('.answers');
   const userResponses = [];
   demoQuestions.forEach( (currentQuestion, questionNumber) => {
     const answerContainer = answerContainers[questionNumber];
@@ -143,8 +146,7 @@ function submitDemos(){
     userResponses.push({axis: currentQuestion.axis,  answer: userResponse})
   }
   )
-  demoContainer.style.display = "none";
-  demoSubmitButton.style.display = "none";
+  demographicsContainer.style.display = "none";
   return userResponses;
 }
 
@@ -153,7 +155,7 @@ function buildQuiz(){
 
   // shuffle questions randomly and assign standard answer set to each
   shuffleArray(quizQuestions);
-  quizSubmitButton.style.visibility = "visible";
+  quiz.style.visibility = "visible";
   quizQuestions.forEach(q => q['answers'] = quizAnswers)
 
   quizQuestions.forEach((currentQuestion, questionNumber) => {
@@ -177,7 +179,7 @@ function buildQuiz(){
   );
 
   // combine output list into one string of HTML and display on page
-  quizContainer.innerHTML = output.join('');
+  quizQContainer.innerHTML = output.join('');
 }
 
 function submitQuiz(){
@@ -191,7 +193,6 @@ function submitQuiz(){
   }
   )
   quizContainer.style.display = "none";
-  quizSubmitButton.style.display = "none";
   return userResponses;
 }
 
@@ -202,25 +203,25 @@ function computeAlignments(userResponses){
       coords.push({
         x: answerWeights[currentResponse.answer][0],
         y: 0,
-        r: 1
+        r: 10
       })
       coords.push({
         x: -1*answerWeights[currentResponse.answer][1],
         y: 0,
-        r: 1
+        r: 10
       })
 
     }
-    else if (currentResponse.axis == "LA" && currentResponse.answer) {
+    else if (currentResponse.axis == "AL" && currentResponse.answer) {
       coords.push({
         x: 0,
         y: answerWeights[currentResponse.answer][0],
-        r: 1
+        r: 10
       })
       coords.push({
         x: 0,
         y: -1*answerWeights[currentResponse.answer][1],
-        r: 1
+        r: 10
       })
     }
   });
@@ -229,6 +230,7 @@ function computeAlignments(userResponses){
 }
 
 function displayResults(axisCoords){
+  console.log(axisCoords);
   resultsContainer.style.visibility = "visible";
   const plot1 = new Chart(plotContainer, {
     type: 'bubble',
@@ -244,7 +246,9 @@ function displayResults(axisCoords){
             y: {
                 beginAtZero: false
             }
-        }
+        },
+        responsive: true,
+        maintainAspectRatio: false
     }
   }
   )
@@ -260,5 +264,5 @@ demoSubmitButton.addEventListener('click', () => {
 quizSubmitButton.addEventListener('click', () => {
   const quizResponses = submitQuiz();
   const axisCoords = computeAlignments(quizResponses);
-  displayResults();
+  displayResults(axisCoords);
 });

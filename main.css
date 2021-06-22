@@ -2,7 +2,7 @@
   --green: #00FF00;
   --off-white: #d4d4d4;
   --dark-grey: #121212;
-  --medium-grey: #6F6B6B;
+  --medium-grey: #1e1e1e;
   --soft-purp: #bb86fc;
 }
 
@@ -13,18 +13,29 @@
 
 body {
     background: var(--bg);
+    margin-left: 100px;
+    margin-right: 100px;
 }
 
 h1 {
   text-align: center;
 }
 
-p {
-  text-align: center;
+h2 {
+  margin-left: 20px;
 }
 
-.list {
-  list-style: square;
+.tile {
+  background-color: var(--medium-grey);
+  border-color: var(--medium-grey);
+  border-style: solid;
+  border-radius: 10px;
+}
+
+p {
+  text-align: left;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
 #start-btn {
@@ -38,8 +49,17 @@ p {
 }
 #start-btn:focus { outline-style: none; }
 
-#demo-submit-btn {
+#demographics {
   visibility: hidden;
+}
+
+#demoQuestions {
+  margin-top: 20px;
+  margin-left: 40px;
+  margin-right: 40px;
+}
+
+#demo-submit-btn {
   position: static;
   height: 50px;
   width: 60px;
@@ -50,8 +70,17 @@ p {
 }
 #demo-submit-btn:focus { outline-style: none; }
 
-#quiz-submit-btn {
+#quiz {
   visibility: hidden;
+}
+
+#quizQuestions {
+  margin-top: 10px;
+  margin-left: 100px;
+  margin-right: 100px;
+}
+
+#quiz-submit-btn {
   position: static;
   height: 50px;
   width: 60px;
@@ -64,7 +93,6 @@ p {
 
 .button { text-align: center; }
 
-#quiz { text-align: left; }
 
 .question {
   text-align: left;
