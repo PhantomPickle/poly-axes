@@ -187,7 +187,6 @@ function submitQuiz(){
     const answerContainer = answerContainers[questionNumber];
     const selector = `input[name=question${questionNumber}]:checked`;
     const userResponse = (answerContainer.querySelector(selector) || {}).value || NaN;
-    console.log(userResponse);
     userResponses.push({axis: currentQuestion.axis,  answer: userResponse})
   }
   )
@@ -199,8 +198,8 @@ function submitQuiz(){
 function computeAlignments(userResponses){
   const coords = [];
   userResponses.forEach((currentResponse, responseNumber) => {
-    console.log(currentResponse.answer)
-    if (currentResponse.axis == "LR" && currentResponse.answer != NaN) {
+    if (currentResponse.axis == "LR" && !isNaN(currentResponse.answer)) {
+      console.log(answerWeights[currentResponse.answer][0])
       coords.push({
         x: answerWeights[currentResponse.answer][0],
         y: 0,
@@ -213,7 +212,7 @@ function computeAlignments(userResponses){
       })
 
     }
-    else if (currentResponse.axis == "LA" && currentResponse.answer != NaN) {
+    else if (currentResponse.axis == "LA" && !isNaN(currentResponse.answer)) {
       coords.push({
         x: 0,
         y: answerWeights[currentResponse.answer][0],
