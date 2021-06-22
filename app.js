@@ -93,7 +93,7 @@ const answerWeights = {
   a: [1.0,0.0],
   b: [.5,0.0],
   c: [0.0,0.0],
-  d: [.5,.5],
+  d: [.25,.25],
   e: [0.0,0.5],
   f: [0.0,1.0],
   g: NaN
@@ -186,7 +186,8 @@ function submitQuiz(){
   quizQuestions.forEach( (currentQuestion, questionNumber) => {
     const answerContainer = answerContainers[questionNumber];
     const selector = `input[name=question${questionNumber}]:checked`;
-    const userResponse = (answerContainer.querySelector(selector) || {}).value;
+    const userResponse = (answerContainer.querySelector(selector) || {}).value || NaN;
+    console.log(userResponse);
     userResponses.push({axis: currentQuestion.axis,  answer: userResponse})
   }
   )
@@ -195,47 +196,71 @@ function submitQuiz(){
   return userResponses;
 }
 
-function computeAlignments(){
+function computeAlignments(userResponses){
+  const coords = [];
+  userResponses.forEach((currentResponse, responseNumber) => {
+    console.log(currentResponse.answer)
+    if (currentResponse.axis == "LR" && currentResponse.answer != NaN) {
+      coords.push({
+        x: answerWeights[currentResponse.answer][0],
+        y: 0,
+        r: 1
+      })
+      coords.push({
+        x: -1*answerWeights[currentResponse.answer][1],
+        y: 0,
+        r: 1
+      })
+
+    }
+    else if (currentResponse.axis == "LA" && currentResponse.answer != NaN) {
+      coords.push({
+        x: 0,
+        y: answerWeights[currentResponse.answer][0],
+        r: 1
+      })
+      coords.push({
+        x: 0,
+        y: -1*answerWeights[currentResponse.answer][1],
+        r: 1
+      })
+    }
+  });
+
+  return coords;
 }
 
-function displayResults(){
+function displayResults(axisCoords){
   resultsContainer.style.visibility = "visible";
-  const myChart = new Chart(plotContainer, {
-    type: 'bar',
+  const plot1 = new Chart(plotContainer, {
+    type: 'bubble',
     data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-        datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-        }]
+      datasets: [{
+        label: 'Dataset 1',
+        data: axisCoords,
+        backgroundColor: 'rgb(255, 99, 132)'
+      }]
     },
     options: {
         scales: {
             y: {
-                beginAtZero: true
+                beginAtZero: false
             }
         }
     }
-});
+  }
+  )
 }
 
 startButton.addEventListener('click', displayDemos);
-demoSubmitButton.addEventListener('click', () => {const demoResponses = submitDemos(); buildQuiz();});
-quizSubmitButton.addEventListener('click', () => {const quizResponses = submitQuiz(); computeAlignments(); displayResults();});
+
+demoSubmitButton.addEventListener('click', () => {
+  const demoResponses = submitDemos();
+  buildQuiz();
+});
+
+quizSubmitButton.addEventListener('click', () => {
+  const quizResponses = submitQuiz();
+  const axisCoords = computeAlignments(quizResponses);
+  displayResults();
+});
