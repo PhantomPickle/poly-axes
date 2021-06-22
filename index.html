@@ -11,27 +11,33 @@
     <div class="tile" id="intro">
       <p>
         Welcome to the PolyAxis political alignment quiz. It's intended to assess one's political leanings
-        along Left/Right, Authoritarian/Libertarian, Pragmatist/Idealist, and Populist/Elitist axes. I am
-        not a political science expert or even much of an amateur really, I'm just a data-minded science
-        nerd who can stitch together some Frankenstein code. That means you should take these results for
-        what they are: fun and interesting; they are not necessarily meaningful in any deeper sense so
-        interpret at your own risk.
+        along Left/Right, Authoritarian/Libertarian, Pragmatist/Idealist, and Populist/Elitist axes.
       </p><br><br>
-      <div class="button"><button id="start-btn">Begin</button></div><br>
+      <div id="buttonContainer"><button class="button" id="start-btn">Begin</button></div><br>
     </div>
     <div class="tile" id="demographics">
       <h2> Demographic Questions </h2>
-      <div id="demoQuestions"></div>
-      <div class="button"><button id="demo-submit-btn">Submit</button></div><br>
+      <div class="questionSet" id="demoQuestions"></div>
+      <div id="buttonContainer"><button class="button" id="demo-submit-btn">Submit</button></div><br>
     </div><br>
     <div class="tile" id = "quiz">
       <h2> Quiz Questions </h2>
-      <div id="quizQuestions"></div>
-      <div class="button"><button id="quiz-submit-btn">Submit Quiz</button></div><br>
+      <div class = questionSet id="quizQuestions"></div>
+      <div id="buttonContainer"><button class="button" id="quiz-submit-btn">Submit Quiz</button></div><br>
     </div>
     <div class="tile" id="results">
-      <h1>Results</h1>
+      <h1 id="resultHead">Results</h1>
       <div><canvas class="plot" id="pl1" width="200" height="200"></canvas></div>
+    </div><br>
+    <div class="tile" id="conclusion">
+      <p>
+        Disclaimer: I am not a political science expert or even much of an amateur really, I'm just a
+        data-minded science nerd who can stitch together some Frankenstein code. That means you should
+        take these results for what they are: fun and interesting; they are not necessarily meaningful
+        in any deeper sense so interpret at your own risk. <br><br>
+
+        Email: polyaxisquiz@gmail.<br><br>
+      </p>
     </div>
   <script src="app.js" charset="utf-8"></script>
   <noscript>You need to enable JavaScript to view the full site.</noscript>

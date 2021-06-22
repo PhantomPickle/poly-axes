@@ -13,9 +13,15 @@
 }
 
 body {
-    background: var(--bg);
-    margin-left: 100px;
-    margin-right: 100px;
+  background: var(--bg);
+  margin-left: 100px;
+  margin-right: 100px;
+}
+
+p {
+  text-align: left;
+  margin-left: 2%;
+  margin-right: 2%;
 }
 
 h1 {
@@ -23,7 +29,24 @@ h1 {
 }
 
 h2 {
-  margin-left: 20px;
+  margin-left: 2%;
+}
+
+button.button {
+  background-color: var(--btnBg);
+  color: var(--btnFontColor);
+  position: static;
+  border: none;
+  height: 10%;
+  width: 10%;
+  border-radius: 5%/30%;
+}
+
+.dark-theme {
+  --bg: var(--dark-grey);
+  --fontColor: var(--off-white);
+  --btnBg: var(--soft-purp);
+  --btnFontColor: var(--dark-grey);
 }
 
 .tile {
@@ -33,90 +56,43 @@ h2 {
   border-radius: 10px;
 }
 
-p {
+.questionSet {
+  margin-top: 1%;
+  margin-left: 3%;
+  margin-right: 3%;
   text-align: left;
-  margin-left: 20px;
-  margin-right: 20px;
 }
 
-#start-btn {
-  position: static;
-  height: 50px;
-  width: 60px;
-  border-radius: 16px;
-  border: none;
-  color: var(--btnFontColor);
-  background-color: var(--btnBg)
+.plot {
+  width: 30%;
+  height: 20%;
+  background-color: var(--light-grey);
+  border-color: var(--light-grey);
+  border-style: solid;
+  border-radius: 20px;
 }
-#start-btn:focus { outline-style: none; }
+
+#buttonContainer {
+  text-align: center;
+}
 
 #demographics {
   visibility: hidden;
 }
 
-#demoQuestions {
-  margin-top: 20px;
-  margin-left: 40px;
-  margin-right: 40px;
-}
-
-#demo-submit-btn {
-  position: static;
-  height: 50px;
-  width: 60px;
-  border-radius: 16px;
-  border: none;
-  color: var(--btnFontColor);
-  background-color: var(--btnBg)
-}
+#demo-submit-btn { visibility: hidden; }
 #demo-submit-btn:focus { outline-style: none; }
 
 #quiz {
   visibility: hidden;
 }
 
-#quizQuestions {
-  margin-top: 10px;
-  margin-left: 100px;
-  margin-right: 100px;
-}
-
-#quiz-submit-btn {
-  position: static;
-  height: 50px;
-  width: 60px;
-  border-radius: 16px;
-  border: none;
-  color: var(--btnFontColor);
-  background-color: var(--btnBg)
-}
 #quiz-submit-btn:focus { outline-style: none; }
-
-.button { text-align: center; }
-
-
-.question {
-  text-align: left;
-}
 
 #results {
   visibility: hidden;
-  margin-left: 20px;
-  margin-right: 20px;
 }
 
-.plot {
-  width: 600px;
-  height:400px;
-  background-color: var(--light-grey);
-  border-color: var(--light-grey);
-  border-style: solid;
-  border-radius: 10px;
-}
-
-.dark-theme {
-  --bg: var(--dark-grey);
-  --fontColor: var(--off-white);
-  --btnBg: var(--soft-purp);
-  --btnFontColor: var(--dark-grey);
+#resultHead {
+  font-size: 100%;
 }
