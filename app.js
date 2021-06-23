@@ -204,19 +204,20 @@ function mapResponses(userResponses){
   const ALCoords = [];
 
   userResponses.forEach((currentResponse, responseNumber) => {
-    if (currentResponse.axis == "LR" && currentResponse.answer) {
+    if (currentResponse.axis === "LR" && currentResponse.answer && currentResponse.answer.length != 0) {
       LRCoords.push({
-        x: answerWeights[currentResponse.answer][0],
+        x: -1*answerWeights[currentResponse.answer][0], //-1 b.c. Left/Right flipped vs. axis
         y: 0,
         r: 3
       })
+
       LRCoords.push({
-        x: -1*answerWeights[currentResponse.answer][1],
+        x: answerWeights[currentResponse.answer][1],
         y: 0,
         r: 3
       })
     }
-    else if (currentResponse.axis == "AL" && currentResponse.answer) {
+    else if (currentResponse.axis === "AL" && currentResponse.answer && currentResponse.answer.length != 0) {
       ALCoords.push({
         x: 0,
         y: answerWeights[currentResponse.answer][0],
@@ -239,7 +240,7 @@ function mapResponses(userResponses){
 function computeStats(points){
   const xCum = [];
   const yCum = [];
-  
+
   numPoints = points.LRCoords.length + points.ALCoords.length
 
   points.LRCoords.forEach((currentPoint, i) => {
@@ -283,12 +284,46 @@ function displayResults(responsePoints, avgPoints){
     },
     options: {
         scales: {
-            x: {beginAtZero: false},
-            y: {beginAtZero: false}
+            x: {
+              title: {
+                display: true,
+                text: 'Left / Right',
+                color: 'rgb(187,134,252)',
+              },
+              beginAtZero: false,
+              min: -1,
+              max: 1,
+              grid: {
+                drawTicks: true,
+                color: (context) => { return context.tick.value === 0 ? "#000000" : "#1e1e1e" }
+              },
+              scaleShowLabels: false
+            },
+            y: {
+              title: {
+                display: true,
+                text: 'Authoritarian / Libertarian',
+                color: 'rgb(129,133,236)',
+              },
+              beginAtZero: false,
+              min: -1,
+              max: 1,
+              grid: {
+                drawTicks: true,
+                color: (context) => { return context.tick.value === 0 ? "#000000" : "#1e1e1e" }
+              },
+              scaleShowLabels: false
+            }
+        },
+        plugins: {
+          title: {
+            display: true,
+            text: 'Left/Right '+'& '+'Authoritarian/Libertarian'+' Alignment'
+          }
         },
         borderWidth: 2,
+        maintainAspectRatio: false,
         responsive: true,
-        maintainAspectRatio: false
     }
   }
   )
@@ -306,5 +341,6 @@ quizSubmitButton.addEventListener('click', () => {
   const responseCoords = mapResponses(quizResponses);
   console.log(responseCoords)
   const avgCoords = computeStats(responseCoords);
+  console.log(responseCoords)
   displayResults(responseCoords, avgCoords);
 });
