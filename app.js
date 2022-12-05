@@ -25,8 +25,8 @@ const demoQuestions = [
   {
     "questionText": "What is your gender identity?",
     "answers": {
-      a: "man",
-      b: "woman",
+      a: "masc",
+      b: "femme",
       c: "other"
     }
   }
@@ -204,7 +204,7 @@ function mapResponses(userResponses){
   const ALCoords = [];
 
   userResponses.forEach((currentResponse, responseNumber) => {
-    if (currentResponse.axis === "LR" && currentResponse.answer && currentResponse.answer.length != 0) {
+    if (currentResponse.axis === "LR" && currentResponse.answer) {
       LRCoords.push({
         x: -1*answerWeights[currentResponse.answer][0], //-1 b.c. Left/Right flipped vs. axis
         y: 0,
@@ -217,7 +217,7 @@ function mapResponses(userResponses){
         r: 3
       })
     }
-    else if (currentResponse.axis === "AL" && currentResponse.answer && currentResponse.answer.length != 0) {
+    else if (currentResponse.axis === "AL" && currentResponse.answer) {
       ALCoords.push({
         x: 0,
         y: answerWeights[currentResponse.answer][0],
